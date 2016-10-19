@@ -2,8 +2,11 @@ import json
 import wikipedia
 
 
+# scores is a dictionary of dictionaries linking a base word with other words it is most closely associated with (excluding basics)
 with open("scores.txt", 'a') as fileName:
     scores = json.load(fileName)
+
+# links is a dictionary of dictionaries linking a base word
 with open("scores.txt", 'a') as fileName:
     links = json.load(fileName)
 with open("basics.txt", 'a') as fileName:

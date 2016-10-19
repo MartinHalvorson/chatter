@@ -2,15 +2,15 @@ import wikipedia
 import json
 import re
 
-# Selects the number of most common words to list
-top_n_basic_words = 200
-
 # Selects number of Wikipedia articles to add
-number_of_articles = 1000
+number_of_articles = 10
 
 # Loads dictionary of most common words from basics_counts.txt
-with open("basics_counts.txt", "r") as fileName:
-    count_of_words = json.load(fileName)
+with open("scores.txt", "a") as fileName:
+    scores = json.load(fileName)
+
+with open("links.txt", "a") as fileName:
+    links = json.load(fileName)
 
 for i in range(number_of_articles):
     try:
@@ -22,9 +22,14 @@ for i in range(number_of_articles):
 
         # Creates string of lowercase text from Wikipedia article
         article_text = wikipedia.page(title).content.lower()
+        article_text = "This is a test sentence"
 
-        # Iterates through words in article text
-        for word in re.findall("[0-9A-z']+", article_text):
+        # Creates list of words in article
+        words = re.findall("[0-9A-z']+", article_text)
+        
+        for i in range(len(words) - 1):
+
+
             count_of_words[word] = count_of_words.get(word, 0) + 1
 
     # Occasional errors retrieving file
@@ -33,13 +38,12 @@ for i in range(number_of_articles):
 
     # Updates basics.txt file with most recent list every nth times (n = 5 below)
     if i % 10 == 0:
-
         # Creates list of words (v) and their count (k)
         basics = [(v, k) for v, k in count_of_words.items()]
-        
+
         # Sorts list in descending order, truncates based on number of words wanted
-        basics = sorted(basics, key=lambda x:x[1], reverse=True)[:top_n_basic_words]
-        
+        basics = sorted(basics, key=lambda x: x[1], reverse=True)[:top_n_basic_words]
+
         # Creates list of just words (removing count)
         basics = [x[0] for x in basics]
 
