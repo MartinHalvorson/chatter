@@ -1,5 +1,5 @@
 import json
-import wikipedia
+import wikipedia 
 
 
 links = open("links.txt", 'a')
