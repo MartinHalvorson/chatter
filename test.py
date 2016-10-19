@@ -1,0 +1,1 @@
+#open("scores.txt", 'a')

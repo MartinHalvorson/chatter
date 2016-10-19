@@ -1,10 +1,13 @@
 import json
-import wikipedia 
+import wikipedia
 
 
-links = open("links.txt", 'a')
-scores = open("scores.txt", 'a')
-basics = open("basics.txt", 'a')
+with open("scores.txt", 'a') as fileName:
+    scores = json.load(fileName)
+with open("scores.txt", 'a') as fileName:
+    links = json.load(fileName)
+with open("basics.txt", 'a') as fileName:
+    basics = json.load(fileName)
 
 
 def add_topic(title):
