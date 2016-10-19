@@ -3,14 +3,14 @@ import wikipedia
 
 
 # scores is a dictionary of dictionaries linking a base word with other words it is most closely associated with (excluding basics)
-with open("scores.txt", 'a') as fileName:
-    scores = json.load(fileName)
+with open("scores.txt", 'a') as file_name:
+    scores = json.load(file_name)
 
 # links is a dictionary of dictionaries linking a base word
-with open("scores.txt", 'a') as fileName:
-    links = json.load(fileName)
-with open("basics.txt", 'a') as fileName:
-    basics = json.load(fileName)
+with open("scores.txt", 'a') as file_name:
+    links = json.load(file_name)
+with open("basics.txt", 'a') as file_name:
+    basics = json.load(file_name)
 
 
 def add_topic(title):

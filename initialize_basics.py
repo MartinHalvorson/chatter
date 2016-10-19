@@ -9,8 +9,8 @@ top_n_basic_words = 200
 number_of_articles = 1000
 
 # Loads dictionary of most common words from basics_counts.txt
-with open("basics_counts.txt", "r") as fileName:
-    count_of_words = json.load(fileName)
+with open("basics_counts.txt", "r") as file_name:
+    count_of_words = json.load(file_name)
 
 for i in range(number_of_articles):
     try:

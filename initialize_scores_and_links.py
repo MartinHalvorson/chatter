@@ -3,14 +3,17 @@ import json
 import re
 
 # Selects number of Wikipedia articles to add
-number_of_articles = 10
+number_of_articles = 11
 
 # Loads dictionary of most common words from basics_counts.txt
-with open("scores.txt", "a") as fileName:
-    scores = json.load(fileName)
+with open("scores.txt", "r") as file_name:
+    scores = json.load(file_name)
 
-with open("links.txt", "a") as fileName:
-    links = json.load(fileName)
+with open("links.txt", "r") as file_name:
+    links = json.load(file_name)
+
+with open("basics.txt", "r") as file_name:
+    basics = json.load(file_name)
 
 for i in range(number_of_articles):
     try:
@@ -22,15 +25,32 @@ for i in range(number_of_articles):
 
         # Creates string of lowercase text from Wikipedia article
         article_text = wikipedia.page(title).content.lower()
-        article_text = "This is a test sentence"
+        article_text = "this is a test sentence for analysis is a test"
 
         # Creates list of words in article
         words = re.findall("[0-9A-z']+", article_text)
-        
-        for i in range(len(words) - 1):
+
+        # UPDATING LINKS DICTIONARY
+        # Iterating through each word and its following word
+        for j in range(len(words) - 1):
+
+            # Renaming for code clarity
+            first_word = words[j]
+            second_word = words[j + 1]
+
+            # Extracts first word's dictionary from links dictionary
+            connected_words = links.get(first_word, {})
+
+            # Increments previous value of second word in the first word's dictionary
+            connected_words[second_word] = connected_words.get(second_word, 0) + 1
+
+            # Puts first words's dictionary back into links dictionary
+            links[first_word] = connected_words
+
+        # UPDATING SCORES DICTIONARY
+        for word in basics
 
 
-            count_of_words[word] = count_of_words.get(word, 0) + 1
 
     # Occasional errors retrieving file
     except:
@@ -38,19 +58,11 @@ for i in range(number_of_articles):
 
     # Updates basics.txt file with most recent list every nth times (n = 5 below)
     if i % 10 == 0:
-        # Creates list of words (v) and their count (k)
-        basics = [(v, k) for v, k in count_of_words.items()]
-
-        # Sorts list in descending order, truncates based on number of words wanted
-        basics = sorted(basics, key=lambda x: x[1], reverse=True)[:top_n_basic_words]
-
-        # Creates list of just words (removing count)
-        basics = [x[0] for x in basics]
 
         # Dumps list in json format into basics.txt file
-        with open('basics.txt', 'w') as file_name:
-            json.dump(basics, file_name)
+        with open('links.txt', 'w') as file_name:
+            json.dump(links, file_name)
 
         # Updates basics_counts.txt to reflect updated dictionary (building over time instead of erasing after run)
-        with open("basics_counts.txt", "w") as file_name:
-            json.dump(count_of_words, file_name)
+        with open("scores.txt", "w") as file_name:
+            json.dump(scores, file_name)
