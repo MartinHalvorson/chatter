@@ -1,12 +1,23 @@
 import json
 
-# Initializes scores dictionary
-with open("scores.txt", "r") as file_name:
-    scores = json.load(file_name)
+# Initializes scores.txt and scores dictionary if not already present
+try:
+    with open("scores.txt", "r") as file_name:
+        scores = json.load(file_name)
+except:
+    with open("scores.txt", "a") as file_name:
+        scores = {}
+        json.dump(scores, file_name)
 
-# Initializes links dictionary
-with open("links.txt", "r") as file_name:
-    links = json.load(file_name)
+# Initializes links.txt and links dictionary if not already present
+try:
+    with open("links.txt", "r") as file_name:
+        links = json.load(file_name)
+except:
+    with open("links.txt", "a") as file_name:
+        links = {}
+        json.dump(links, file_name)
+
 
 # Returns list of words most related to a keyword
 def get_top_scores(keyword):
