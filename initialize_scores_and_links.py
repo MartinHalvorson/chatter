@@ -3,7 +3,7 @@ import json
 import re
 
 # Selects number of Wikipedia articles to add
-number_of_articles = 2001
+number_of_articles = 5001
 
 # Loads dictionary of most common words from basics_counts.txt
 with open("scores.txt", "r") as file_name:
